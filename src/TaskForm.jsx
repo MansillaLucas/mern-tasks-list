@@ -1,13 +1,17 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
+import { TaskContext } from './TaskContext'
 
-function TaskForm({createTask}) {
+function TaskForm() {
 
     const [name, setName] = useState('')
     const [description, setDescription] = useState('')
+    const{createTask} = useContext(TaskContext)
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        createTask(name, description)
+        createTask({ name, description })
+        setName('')
+        setDescription('')
     }
 
     return (
@@ -19,13 +23,16 @@ function TaskForm({createTask}) {
                 onChange={(e) => {
                     setName(e.target.value)
                 }}
+                value={name}
             />
             <br />
             <input
                 placeholder="Descripción de la tarea"
                 onChange={(e) => {
                     setDescription(e.target.value)
-                }} />
+                }}
+                value={description}
+            />
             <br />
             <button type="submit">Guardar</button>
 

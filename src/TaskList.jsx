@@ -1,5 +1,10 @@
+import {useContext} from 'react'
+import { TaskContext } from './TaskContext'
+import TaskCard from './TaskCard'
 
-function TaskList({tasks}) {
+function TaskList() {
+
+    const {tasks} = useContext(TaskContext)
 
     if (tasks.length === 0) {
         return <h3>No hay tareas</h3>
@@ -7,11 +12,8 @@ function TaskList({tasks}) {
 
     return (
         <>
-        {tasks.map((t) => (
-            <div key={t.id}>
-                <h3>{t.name}</h3>
-                <p>{t.description}</p>
-            </div>
+        {tasks.map((task) => (
+            <TaskCard key={task.id} task={task}/>
         ))}
         </>
     )
